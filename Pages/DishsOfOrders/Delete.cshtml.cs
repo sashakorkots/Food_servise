@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPages.Models;
 
-namespace Food_servise.Pages_Orders
+namespace Food_servise.Pages_DishsOfOrders
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace Food_servise.Pages_Orders
         }
 
         [BindProperty]
-        public Order Order { get; set; }
+        public DishsOfOrder DishsOfOrder { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,11 +28,11 @@ namespace Food_servise.Pages_Orders
                 return NotFound();
             }
 
-            Order = await _context.Order
-                .Include(o => o.Courier)
-                .Include(o => o.CustomerOfDish).FirstOrDefaultAsync(m => m.Id == id);
+            DishsOfOrder = await _context.DishsOfOrder
+                .Include(d => d.DishesOfOrder)
+                .Include(d => d.OrdersOfDish).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Order == null)
+            if (DishsOfOrder == null)
             {
                 return NotFound();
             }
@@ -46,11 +46,11 @@ namespace Food_servise.Pages_Orders
                 return NotFound();
             }
 
-            Order = await _context.Order.FindAsync(id);
+            DishsOfOrder = await _context.DishsOfOrder.FindAsync(id);
 
-            if (Order != null)
+            if (DishsOfOrder != null)
             {
-                _context.Order.Remove(Order);
+                _context.DishsOfOrder.Remove(DishsOfOrder);
                 await _context.SaveChangesAsync();
             }
 

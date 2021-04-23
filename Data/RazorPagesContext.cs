@@ -25,4 +25,6 @@ using RazorPages.Models;
         public DbSet<RazorPages.Models.Restrant> Restrant { get; set; }
 
         public DbSet<RazorPages.Models.Customer> Customer { get; set; }
+
+        public DbSet<RazorPages.Models.DishsOfOrder> DishsOfOrder { get; set; }
     }

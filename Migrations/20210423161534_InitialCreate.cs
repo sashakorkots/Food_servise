@@ -75,11 +75,18 @@ namespace Food_servise.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    customer_id = table.Column<int>(type: "integer", nullable: false)
+                    customer_id = table.Column<int>(type: "integer", nullable: false),
+                    courier_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_order", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_order_courier_courier_id",
+                        column: x => x.courier_id,
+                        principalTable: "courier",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_order_customer_customer_id",
                         column: x => x.customer_id,
@@ -140,6 +147,42 @@ namespace Food_servise.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "dishs_of_order",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    orders_of_dish_id = table.Column<int>(type: "integer", nullable: false),
+                    dishes_of_order_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_dishs_of_order", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_dishs_of_order_dish_dishes_of_order_id",
+                        column: x => x.dishes_of_order_id,
+                        principalTable: "dish",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_dishs_of_order_order_orders_of_dish_id",
+                        column: x => x.orders_of_dish_id,
+                        principalTable: "order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_dishs_of_order_dishes_of_order_id",
+                table: "dishs_of_order",
+                column: "dishes_of_order_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_dishs_of_order_orders_of_dish_id",
+                table: "dishs_of_order",
+                column: "orders_of_dish_id");
+
             migrationBuilder.CreateIndex(
                 name: "ix_menu_dish_id",
                 table: "menu",
@@ -149,6 +192,11 @@ namespace Food_servise.Migrations
                 name: "ix_menu_restrant_id",
                 table: "menu",
                 column: "restrant_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_order_courier_id",
+                table: "order",
+                column: "courier_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_order_customer_id",
@@ -169,25 +217,28 @@ namespace Food_servise.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "menu");
+                name: "dishs_of_order");
 
             migrationBuilder.DropTable(
-                name: "order");
+                name: "menu");
 
             migrationBuilder.DropTable(
                 name: "region");
 
             migrationBuilder.DropTable(
+                name: "order");
+
+            migrationBuilder.DropTable(
                 name: "dish");
 
             migrationBuilder.DropTable(
-                name: "customer");
+                name: "restrant");
 
             migrationBuilder.DropTable(
                 name: "courier");
 
             migrationBuilder.DropTable(
-                name: "restrant");
+                name: "customer");
         }
     }
 }

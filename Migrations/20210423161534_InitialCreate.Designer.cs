@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Food_servise.Migrations
 {
     [DbContext(typeof(RazorPagesContext))]
-    [Migration("20210422202635_InitialCreate")]
+    [Migration("20210423161534_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,34 @@ namespace Food_servise.Migrations
                     b.ToTable("dish");
                 });
 
+            modelBuilder.Entity("RazorPages.Models.DishsOfOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DishesOfOrderId")
+                        .HasColumnType("integer")
+                        .HasColumnName("dishes_of_order_id");
+
+                    b.Property<int>("OrdersOfDishId")
+                        .HasColumnType("integer")
+                        .HasColumnName("orders_of_dish_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_dishs_of_order");
+
+                    b.HasIndex("DishesOfOrderId")
+                        .HasDatabaseName("ix_dishs_of_order_dishes_of_order_id");
+
+                    b.HasIndex("OrdersOfDishId")
+                        .HasDatabaseName("ix_dishs_of_order_orders_of_dish_id");
+
+                    b.ToTable("dishs_of_order");
+                });
+
             modelBuilder.Entity("RazorPages.Models.Menu", b =>
                 {
                     b.Property<int>("Id")
@@ -137,12 +165,19 @@ namespace Food_servise.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("CourierId")
+                        .HasColumnType("integer")
+                        .HasColumnName("courier_id");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer")
                         .HasColumnName("customer_id");
 
                     b.HasKey("Id")
                         .HasName("pk_order");
+
+                    b.HasIndex("CourierId")
+                        .HasDatabaseName("ix_order_courier_id");
 
                     b.HasIndex("CustomerId")
                         .HasDatabaseName("ix_order_customer_id");
@@ -208,17 +243,38 @@ namespace Food_servise.Migrations
                     b.ToTable("restrant");
                 });
 
+            modelBuilder.Entity("RazorPages.Models.DishsOfOrder", b =>
+                {
+                    b.HasOne("RazorPages.Models.Dish", "DishesOfOrder")
+                        .WithMany("DishesOfOrder")
+                        .HasForeignKey("DishesOfOrderId")
+                        .HasConstraintName("fk_dishs_of_order_dish_dishes_of_order_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RazorPages.Models.Order", "OrdersOfDish")
+                        .WithMany("DishsOfOrder")
+                        .HasForeignKey("OrdersOfDishId")
+                        .HasConstraintName("fk_dishs_of_order_order_orders_of_dish_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DishesOfOrder");
+
+                    b.Navigation("OrdersOfDish");
+                });
+
             modelBuilder.Entity("RazorPages.Models.Menu", b =>
                 {
                     b.HasOne("RazorPages.Models.Dish", "DishOfMenu")
-                        .WithMany()
+                        .WithMany("MenuOfDish")
                         .HasForeignKey("DishId")
                         .HasConstraintName("fk_menu_dish_dish_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RazorPages.Models.Restrant", "RestrantOfMenu")
-                        .WithMany()
+                        .WithMany("MenuOfRestrant")
                         .HasForeignKey("RestrantId")
                         .HasConstraintName("fk_menu_restrant_restrant_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -231,12 +287,21 @@ namespace Food_servise.Migrations
 
             modelBuilder.Entity("RazorPages.Models.Order", b =>
                 {
+                    b.HasOne("RazorPages.Models.Courier", "Courier")
+                        .WithMany()
+                        .HasForeignKey("CourierId")
+                        .HasConstraintName("fk_order_courier_courier_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RazorPages.Models.Customer", "CustomerOfDish")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("fk_order_customer_customer_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Courier");
 
                     b.Navigation("CustomerOfDish");
                 });
@@ -267,8 +332,22 @@ namespace Food_servise.Migrations
                     b.Navigation("RegionOfCourier");
                 });
 
+            modelBuilder.Entity("RazorPages.Models.Dish", b =>
+                {
+                    b.Navigation("DishesOfOrder");
+
+                    b.Navigation("MenuOfDish");
+                });
+
+            modelBuilder.Entity("RazorPages.Models.Order", b =>
+                {
+                    b.Navigation("DishsOfOrder");
+                });
+
             modelBuilder.Entity("RazorPages.Models.Restrant", b =>
                 {
+                    b.Navigation("MenuOfRestrant");
+
                     b.Navigation("RegionOfRestrant");
                 });
 #pragma warning restore 612, 618

@@ -1,5 +1,5 @@
 @page
-@model Food_servise.Pages_Orders.IndexModel
+@model Food_servise.Pages_DishsOfOrders.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,22 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Order[0].CustomerOfDish)
+                @Html.DisplayNameFor(model => model.DishsOfOrder[0].OrdersOfDish)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Order[0].Courier)
+                @Html.DisplayNameFor(model => model.DishsOfOrder[0].DishesOfOrder)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Order) {
+@foreach (var item in Model.DishsOfOrder) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerOfDish.Id)
+                @Html.DisplayFor(modelItem => item.OrdersOfDish.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Courier.Id)
+                @Html.DisplayFor(modelItem => item.DishesOfOrder.Id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

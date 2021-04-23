@@ -21,7 +21,7 @@ namespace Food_servise.Pages_Menus
         public IActionResult OnGet()
         {
         ViewData["DishId"] = new SelectList(_context.Dish, "Id", "Id");
-        ViewData["RestrantId"] = new SelectList(_context.Set<Restrant>(), "Id", "Id");
+        ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Id");
             return Page();
         }
 

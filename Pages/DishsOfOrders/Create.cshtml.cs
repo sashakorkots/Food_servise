@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPages.Models;
 
-namespace Food_servise.Pages_Regions
+namespace Food_servise.Pages_DishsOfOrders
 {
     public class CreateModel : PageModel
     {
@@ -20,13 +20,13 @@ namespace Food_servise.Pages_Regions
 
         public IActionResult OnGet()
         {
-        ViewData["CourierId"] = new SelectList(_context.Courier, "Id", "Id");
-        ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Id");
+        ViewData["DishesOfOrderId"] = new SelectList(_context.Dish, "Id", "Id");
+        ViewData["OrdersOfDishId"] = new SelectList(_context.Order, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Region Region { get; set; }
+        public DishsOfOrder DishsOfOrder { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +36,7 @@ namespace Food_servise.Pages_Regions
                 return Page();
             }
 
-            _context.Region.Add(Region);
+            _context.DishsOfOrder.Add(DishsOfOrder);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

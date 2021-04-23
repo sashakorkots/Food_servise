@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPages.Models;
 
-namespace Food_servise.Pages_Orders
+namespace Food_servise.Pages_DishsOfOrders
 {
     public class IndexModel : PageModel
     {
@@ -18,13 +18,13 @@ namespace Food_servise.Pages_Orders
             _context = context;
         }
 
-        public IList<Order> Order { get;set; }
+        public IList<DishsOfOrder> DishsOfOrder { get;set; }
 
         public async Task OnGetAsync()
         {
-            Order = await _context.Order
-                .Include(o => o.Courier)
-                .Include(o => o.CustomerOfDish).ToListAsync();
+            DishsOfOrder = await _context.DishsOfOrder
+                .Include(d => d.DishesOfOrder)
+                .Include(d => d.OrdersOfDish).ToListAsync();
         }
     }
 }

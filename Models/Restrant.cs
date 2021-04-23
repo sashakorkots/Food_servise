@@ -12,6 +12,7 @@ namespace RazorPages.Models
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public List<Region> RegionOfRestrant { get; set; }
+        public List<Menu> MenuOfRestrant { get; set; }
 
         public override string ToString()
         {

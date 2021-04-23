@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RazorPages.Models
@@ -11,6 +12,8 @@ namespace RazorPages.Models
         public string TypeOfDish { get; set; }
         public string SpeedOfCooking { get; set; }
         public decimal Price { get; set; }
+        public List<Menu> MenuOfDish { get; set; }
+        public List<DishsOfOrder> DishesOfOrder { get; set; }
 
     }
 }

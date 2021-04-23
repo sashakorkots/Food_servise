@@ -20,7 +20,8 @@ namespace Food_servise.Pages_Orders
 
         public IActionResult OnGet()
         {
-        ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "Id", "Id");
+        ViewData["CourierId"] = new SelectList(_context.Courier, "Id", "Id");
+        ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id");
             return Page();
         }
 

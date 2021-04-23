@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPages.Models;
 
-namespace Food_servise.Pages_Orders
+namespace Food_servise.Pages_DishsOfOrders
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Food_servise.Pages_Orders
         }
 
         [BindProperty]
-        public Order Order { get; set; }
+        public DishsOfOrder DishsOfOrder { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,16 +29,16 @@ namespace Food_servise.Pages_Orders
                 return NotFound();
             }
 
-            Order = await _context.Order
-                .Include(o => o.Courier)
-                .Include(o => o.CustomerOfDish).FirstOrDefaultAsync(m => m.Id == id);
+            DishsOfOrder = await _context.DishsOfOrder
+                .Include(d => d.DishesOfOrder)
+                .Include(d => d.OrdersOfDish).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Order == null)
+            if (DishsOfOrder == null)
             {
                 return NotFound();
             }
-           ViewData["CourierId"] = new SelectList(_context.Courier, "Id", "Id");
-           ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id");
+           ViewData["DishesOfOrderId"] = new SelectList(_context.Dish, "Id", "Id");
+           ViewData["OrdersOfDishId"] = new SelectList(_context.Order, "Id", "Id");
             return Page();
         }
 
@@ -51,7 +51,7 @@ namespace Food_servise.Pages_Orders
                 return Page();
             }
 
-            _context.Attach(Order).State = EntityState.Modified;
+            _context.Attach(DishsOfOrder).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Food_servise.Pages_Orders
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(Order.Id))
+                if (!DishsOfOrderExists(DishsOfOrder.Id))
                 {
                     return NotFound();
                 }
@@ -72,9 +72,9 @@ namespace Food_servise.Pages_Orders
             return RedirectToPage("./Index");
         }
 
-        private bool OrderExists(int id)
+        private bool DishsOfOrderExists(int id)
         {
-            return _context.Order.Any(e => e.Id == id);
+            return _context.DishsOfOrder.Any(e => e.Id == id);
         }
     }
 }
