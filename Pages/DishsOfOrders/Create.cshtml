@@ -7,18 +7,18 @@
 
 <h1>Create</h1>
 
-<h4>DishsOfOrder</h4>
+<h4>Dishes of order</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DishsOfOrder.OrdersOfDishId" class="control-label"></label>
+                <label asp-for="DishsOfOrder.OrdersOfDishId" class="control-label">Order Id</label>
                 <select asp-for="DishsOfOrder.OrdersOfDishId" class ="form-control" asp-items="ViewBag.OrdersOfDishId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DishsOfOrder.DishesOfOrderId" class="control-label"></label>
+                <label asp-for="DishsOfOrder.DishesOfOrderId" class="control-label">Dishes of order</label>
                 <select asp-for="DishsOfOrder.DishesOfOrderId" class ="form-control" asp-items="ViewBag.DishesOfOrderId"></select>
             </div>
             <div class="form-group">

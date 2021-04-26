@@ -2,10 +2,10 @@
 @model Food_servise.Pages_Restrants.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Restaurants";
 }
 
-<h1>Index</h1>
+<h1>Restaurants</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Restrant[0].Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Restrant[0].PhoneNumber)
+                Phone number
             </th>
             <th></th>
         </tr>

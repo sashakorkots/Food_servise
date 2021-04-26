@@ -2,10 +2,10 @@
 @model Food_servise.Pages_Orders.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Orders";
 }
 
-<h1>Index</h1>
+<h1>Orders</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,10 +14,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Order[0].CustomerOfDish)
+                Customer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Order[0].Courier)
+                Courier
             </th>
             <th></th>
         </tr>
@@ -26,10 +26,10 @@
 @foreach (var item in Model.Order) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerOfDish.Id)
+                @Html.DisplayFor(modelItem => item.CustomerOfDish.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Courier.Id)
+                @Html.DisplayFor(modelItem => item.Courier.Name)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

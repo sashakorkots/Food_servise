@@ -2,10 +2,10 @@
 @model Food_servise.Pages_Regions.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Regions";
 }
 
-<h1>Index</h1>
+<h1>Regions</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Region[0].RestrantOfRegion)
+                Restaurant
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Region[0].CourierOfRegion)
@@ -26,10 +26,10 @@
 @foreach (var item in Model.Region) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RestrantOfRegion.Id)
+                @Html.DisplayFor(modelItem => item.RestrantOfRegion.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CourierOfRegion.Id)
+                @Html.DisplayFor(modelItem => item.CourierOfRegion.Name)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

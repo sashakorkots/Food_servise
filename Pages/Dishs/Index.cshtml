@@ -2,10 +2,10 @@
 @model Food_servise.Pages_Dishs.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dishes";
 }
 
-<h1>Index</h1>
+<h1>Dishes</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -20,10 +20,10 @@
                 @Html.DisplayNameFor(model => model.Dish[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dish[0].TypeOfDish)
+                Type of dish
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dish[0].SpeedOfCooking)
+                Speed of cooking
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dish[0].Price)

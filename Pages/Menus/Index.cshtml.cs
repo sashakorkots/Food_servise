@@ -24,7 +24,7 @@ namespace Food_servise.Pages_Menus
         {
             Menu = await _context.Menu
                 .Include(m => m.DishOfMenu)
-                .Include(m => m.RestrantOfMenu).ToListAsync();
+                .Include(m => m.RestrantOfMenu).OrderBy(m => m.RestrantOfMenu).ToListAsync();
         }
     }
 }

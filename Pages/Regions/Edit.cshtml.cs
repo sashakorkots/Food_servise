@@ -37,8 +37,8 @@ namespace Food_servise.Pages_Regions
             {
                 return NotFound();
             }
-           ViewData["CourierId"] = new SelectList(_context.Courier, "Id", "Id");
-           ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Id");
+           ViewData["CourierId"] = new SelectList(_context.Courier, "Id", "Name");
+           ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Name");
             return Page();
         }
 

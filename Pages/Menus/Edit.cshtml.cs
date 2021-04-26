@@ -37,8 +37,9 @@ namespace Food_servise.Pages_Menus
             {
                 return NotFound();
             }
-           ViewData["DishId"] = new SelectList(_context.Dish, "Id", "Id");
-           ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Id");
+           
+            ViewData["DishId"] = new SelectList(_context.Dish, "Id", "Name");
+            ViewData["RestrantId"] = new SelectList(_context.Restrant, "Id", "Name");
             return Page();
         }
 
